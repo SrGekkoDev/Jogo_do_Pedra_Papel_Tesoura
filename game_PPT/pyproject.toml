@@ -7,7 +7,9 @@ authors = [
     { name = "Andre vitor da Silva Guimaraes", email = "andrevitordsg@gmail.com" }
 ]
 requires-python = ">=3.14"
-dependencies = []
+dependencies = [
+    "questionary>=2.1.1",
+]
 
 [project.scripts]
 game-ppt = "game_ppt:main"
