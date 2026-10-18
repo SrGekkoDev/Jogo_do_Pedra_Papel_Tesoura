@@ -1,44 +1,54 @@
 import random
-from player import obter_jogada
 import questionary
+from player import jogada_player
+from carregamento import carregamento
 
-
-#pontuação
 player_wins = 0
 computer_wins = 0
 
-#loop até alguem fazer mais que 3 pontos
+# Loop até alguém fazer 2 pontos
 while computer_wins < 2 and player_wins < 2:
-#Aleatoriza oque a maquina vai jogar
-    choice = ["pedra" , "papel" , "tesoura"]
-    computer_choice = random.choice(choice)
+    print(f"\n--- PLACAR: Você {player_wins} x {computer_wins} Máquina ---")
+    
+    # 1. Pega a jogada do jogador
+    player = jogada_player()
 
-    player = obter_jogada
+    if not player:
+        break
 
+    # 2. A máquina sorteia a opção
+    choices = ["pedra", "papel", "tesoura"]
+    computer_choice = random.choice(choices)
+
+   
+    carregamento(computer_choice)
+
+    
     if (player == "tesoura" and computer_choice == "papel") or \
-        (player == "pedra" and computer_choice == "tesoura") or \
-        (player == "tesoura" and computer_choice == "papel") or \
-        (player == "papel" and computer_choice == "pedra"):
-        winner = "player"
-
-    elif player == computer_choice:
-        winner = "empate"
+       (player == "pedra" and computer_choice == "tesoura") or \
+       (player == "papel" and computer_choice == "pedra"):
+        print("🎉🎉 Você ganhou esta rodada!! 🎉🎉")
         player_wins += 1
 
+    elif player == computer_choice:
+        print("🤝 Empate nesta rodada!! 🤝")
+
     else:
-        winner = "computer"
+        print("💻 A máquina venceu esta rodada!! 💻")
         computer_wins += 1
-    
-    if player_wins > computer_wins:
-        print(f"Você ganhou!!")
 
-    else:
-        print(f"A maquina venceu!!")
+# Fim de jogo
+print("\n============================================")
+if player_wins > computer_wins:
+    print("🏆 PARABÉNS! Você Venceu!!!!")
+else:
+    print("🤖 FIM DE JOGO! A máquina venceu!!")
+print("==============================================\n")
 
-    
-continuar = questionary.select("deseja continuar?",["Continuar", "Parar"]).ask()
+# Pergunta se quer continuar
+continuar = questionary.select("Deseja jogar novamente?", ["Continuar", "Parar"]).ask()
 
 if continuar == "Continuar":
-    print("a")
+    print("Reiniciando...")
 else:
-    print("b")
+    print("Obrigado por jogar!")
